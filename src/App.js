@@ -3,15 +3,15 @@ import Header from './components/Header';
 import './App.css';
 // import backgroundImage from './assets/background.jpg';
 import api from './services/api';
+import axios from 'axios';
 
 function App() {
     const [projects, setProjects] = useState([]);
 
-    function handleAddProject() {
-        setProjects([...projects, `New project ${Date.now()}`]);
+    async function handleAddProject() {
+       const response = await api.post('projects',{title:`New project ${Date.now()}`,owner:'Billie'})
+        setProjects([...projects, response.data]);
     }
-
-
 
     useEffect(()=>{
         api.get('projects').then(response=>{
